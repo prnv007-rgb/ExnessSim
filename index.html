@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Binance Trade Stream</title>
+</head>
+<body>
+  <h1>BTC/USDT Live Trades</h1>
+  <ul id="trades"></ul>
+
+  <script>
+    const ws = new WebSocket("ws://localhost:8080"); // connect to your WS server
+
+    ws.onopen = () => {
+      console.log("Connected to server WebSocket");
+    };
+
+    ws.onmessage = (event) => {
+      const trade = JSON.parse(event.data);
+      console.log(trade); // check in browser console
+      const li = document.createElement("li");
+      li.textContent = `Price: ${trade.p}, Quantity: ${trade.q}`;
+      document.getElementById("trades").prepend(li);
+    };
+
+    ws.onclose = () => console.log("Disconnected from server WebSocket");
+  </script>
+</body>
+</html>
