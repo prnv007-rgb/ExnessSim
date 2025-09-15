@@ -1,4 +1,4 @@
-import React from "react";
+
 import type { BalancesMap } from "../hooks/useBalance";
 
 export default function BalancesPanel({ balances }: { balances: BalancesMap }) {

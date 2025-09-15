@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import OrderForm from "./form";
 import BalancesPanel from "./balance";
 import ActiveOrders from "./active";
@@ -6,11 +6,10 @@ import TradeNotifications from "./notif";
 import { useBalances } from "../hooks/useBalance";
 import { useWebSocket } from "../hooks/useWebSocket";
 import api from "../api";
-import Dash from "./dash";
 
 export default function DashboardWrapper() {
   const assetsList = ["BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT", "ADAUSDT"];
-  const { balances, loading, refresh } = useBalances();
+  const { balances, refresh } = useBalances();
 
   const [latestPrices, setLatestPrices] = useState<Record<string, number>>({});
   const [incomingOrder, setIncomingOrder] = useState<any | null>(null);

@@ -1,25 +1,24 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import api from "../api";
 
 export default function ActiveOrders({ incomingOrder }: { incomingOrder?: any }) {
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // try fetch user's recent orders if backend supports it
+
   const fetch = async () => {
     setLoading(true);
     try {
       const res = await api.get("/orders");
       if (Array.isArray(res.data)) setOrders(res.data);
     } catch (err) {
-      // backend may not have GET /orders - that's OK; we'll rely on WS
+    
       console.debug("GET /orders failed (server may not implement)", err);
     } finally { setLoading(false); }
   };
 
   useEffect(() => { fetch(); }, []);
 
-  // append incoming order updates (from WS)
   useEffect(() => {
     if (!incomingOrder) return;
     setOrders((s) => [incomingOrder, ...s].slice(0, 50));

@@ -1,12 +1,11 @@
 // src/components/dash.tsx
-import React, { useEffect, useRef, useState, type JSX } from "react";
+import { useEffect, useRef, useState, type JSX } from "react";
 import axios from "axios";
 
 interface Asset { asset: string; qty: number; type: string; }
 interface Candle { time: number; open: number; high: number; low: number; close: number; volume?: number; }
 
 const AVAILABLE_ASSETS = ["btcusdt", "ethusdt", "solusdt", "bnbusdt", "adausdt"] as const;
-type AssetKey = typeof AVAILABLE_ASSETS[number];
 const INTERVALS = ["30s", "1m", "5m", "10m", "30m"] as const;
 type IntervalKey = typeof INTERVALS[number];
 
@@ -234,7 +233,6 @@ export default function Dash(): JSX.Element {
 
       const c = data[idx];
       const cx = innerLeft + idx * totalStep + candleW / 2;
-      const cy = innerTop + (1 - (c.close - bottom) / priceRange) * innerH;
 
       // crosshair lines
       ctx.strokeStyle = "rgba(180,180,180,0.25)";
